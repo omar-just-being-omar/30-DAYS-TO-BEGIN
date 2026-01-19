@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Sign Language</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      :root {
+        --wood-0: #0f0a07;
+        --wood-1: #17100c;
+        --wood-2: #24160f;
+        --wood-3: #2f1d14;
+
+        --ink: #f4eadb;
+        --muted: rgba(244, 234, 219, 0.78);
+
+        --glow-amber: rgba(255, 183, 112, 0.18);
+        --glow-rose: rgba(255, 122, 167, 0.12);
+        --glow-teal: rgba(88, 213, 199, 0.10);
+
+        --edge: rgba(255, 244, 230, 0.10);
+        --glass: rgba(255, 244, 230, 0.06);
+        --glass2: rgba(255, 244, 230, 0.09);
+
+        --accent: #ffb36c;
+        --accent2: #ff7aa7;
+        --accent3: #58d5c7;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        background:
+          radial-gradient(900px 520px at 18% 12%, var(--glow-amber), transparent 62%),
+          radial-gradient(880px 520px at 82% 18%, var(--glow-rose), transparent 62%),
+          radial-gradient(900px 600px at 50% 92%, var(--glow-teal), transparent 66%),
+          repeating-linear-gradient(
+            92deg,
+            rgba(255, 214, 170, 0.05) 0px,
+            rgba(255, 214, 170, 0.03) 6px,
+            rgba(0, 0, 0, 0.00) 12px,
+            rgba(0, 0, 0, 0.00) 22px
+          ),
+          linear-gradient(180deg, var(--wood-1), var(--wood-2) 52%, var(--wood-3));
+      }
+
+      .wrap {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 80px 24px 120px;
+        text-align: left;
+      }
+
+      h1 {
+        margin: 0 0 22px;
+        font-size: clamp(2.2rem, 5vw, 3.6rem);
+        letter-spacing: -0.03em;
+        text-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+      }
+
+      .chunk {
+        background: linear-gradient(135deg, var(--glass2), var(--glass));
+        padding: 28px;
+        border-radius: 20px;
+        border: 1px solid var(--edge);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        margin-bottom: 18px;
+      }
+
+      .chunk-title {
+        margin: 0 0 10px;
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: var(--accent2);
+        letter-spacing: -0.01em;
+      }
+
+      .chunk-text {
+        margin: 0;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: var(--muted);
+        text-shadow: 0 10px 36px rgba(0, 0, 0, 0.35);
+      }
+
+      .chunk-text + .chunk-text {
+        margin-top: 12px;
+      }
+
+      .footer {
+        margin-top: 40px;
+        text-align: center;
+        padding-bottom: 40px;
+      }
+
+      .back {
+        appearance: none;
+        border: 1px solid rgba(255, 244, 230, 0.16);
+        border-radius: 999px;
+        padding: 16px 28px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        color: #120b08;
+        cursor: pointer;
+        background: linear-gradient(135deg, rgba(255, 183, 112, 0.98), rgba(255, 122, 167, 0.92));
+        box-shadow: 0 22px 70px rgba(0, 0, 0, 0.50);
+        transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+        text-decoration: none;
+        display: inline-block;
+        letter-spacing: 0.02em;
+      }
+
+      .back:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 28px 85px rgba(0, 0, 0, 0.6);
+        filter: saturate(1.04) brightness(1.02);
+      }
+
+      .back:active {
+        transform: translateY(1px);
+      }
+
+      .btn-burger {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 1050;
+        background: linear-gradient(135deg, rgba(255, 183, 112, 0.98), rgba(255, 122, 167, 0.92));
+        border: 2px solid #7a4d34;
+        border-radius: 8px;
+        color: #fff;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        cursor: pointer;
+      }
+
+      .btn-burger:hover {
+        background: linear-gradient(145deg, #8b5e3c, #a9745b);
+        box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+        transform: translateY(-2px);
+      }
+
+      #woodOffcanvas {
+        background: linear-gradient(145deg, #d1a681, #b37a4f);
+        color: #fff;
+        font-family: 'Georgia', serif;
+      }
+
+      #woodOffcanvas .offcanvas-header {
+        border-bottom: 2px solid #8b5e3c;
+      }
+
+      #woodOffcanvas .btn-close {
+        filter: invert(1);
+      }
+
+      #woodOffcanvas .offcanvas-body .btn {
+        width: 100%;
+        margin-bottom: 1rem;
+        background: linear-gradient(145deg, #a9745b, #8b5e3c);
+        border: 2px solid #7a4d34;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 6px;
+        box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        transition: all 0.2s;
+      }
+
+      #woodOffcanvas .offcanvas-body .btn:hover {
+        background: linear-gradient(145deg, #8b5e3c, #a9745b);
+        transform: translateY(-1px);
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+      }
+
+      a { color: inherit; }
+    </style>
+  </head>
+  <body>
+    <button class="btn-burger" type="button" data-bs-toggle="offcanvas" data-bs-target="#woodOffcanvas" aria-controls="woodOffcanvas">
+      &#9776;
+    </button>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="woodOffcanvas" aria-labelledby="woodOffcanvasLabel">
+      <div class="offcanvas-header">
+        <h5 id="woodOffcanvasLabel">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <a href="index.html"><button class="btn">Home</button></a>
+        <a href="2nd page.html"><button class="btn">Before We Begin</button></a>
+        <a href="projects.html"><button class="btn">Projects</button></a>
+        <a href="important note.html"><button class="btn">VERY IMPORTANT NOTE</button></a>
+        <a href="failed.html"><button class="btn">Feel like you failed?</button></a>
+        <a href="about.html"><button class="btn">About</button></a>
+
+      </div>
+    </div>
+
+    <main class="wrap">
+      <h1>Learn sign language</h1>
+
+      <div class="chunk">
+        <p class="chunk-text">Sign language is not universal. Just like spoken languages, there are many sign languages, such as ASL, BSL, and Egyptian Sign Language, each with its own grammar, structure, and cultural context.</p>
+        <p class="chunk-text">Learning sign language is not just about communication; it’s about access, inclusion, and respect for the Deaf community. While AI tools attempt to translate or recognize signs, they struggle due to the visual, spatial, and cultural complexity of sign languages, making human learning and interaction irreplaceable.
+        </p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">What problem does this address?</h2>
+        <p class="chunk-text">Deaf and hard-of-hearing individuals are often excluded from everyday communication. Learning sign language reduces this barrier and enables direct, respectful interaction without relying on interpreters or unreliable technology.</p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">Why do it? What will you gain?</h2>
+        <p class="chunk-text">Sign language allows communication where spoken language cannot. It supports inclusion, accessibility, and independence for Deaf individuals, and it builds awareness of a rich linguistic and cultural system that is often overlooked. </p>
+<p class="chunk-text">
+You gain the ability to communicate visually, improved non-verbal awareness, stronger empathy, and a deeper understanding of language as a system. You also develop patience, focus, and observational skills.</p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">How to do it?</h2>
+        <p class="chunk-text">Start by choosing the specific sign language relevant to your region or goals. Learn basic vocabulary, handshapes, facial expressions, and grammar. Practice through videos, mirrors, and real interaction with Deaf signers whenever possible.</p> </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">How to stay consistent?</h2>
+        <p class="chunk-text">Practice daily, even briefly. Repetition and muscle memory are essential. Record yourself signing, review mistakes, and focus on clarity rather than speed.</p> </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">Why are 30 days enough to start it?</h2>
+        <p class="chunk-text">30 days is enough to learn the alphabet, common signs, basic sentence structure, and conversational patterns. It builds familiarity and confidence to continue learning long-term. </p>      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">What does success look like after 30 days?</h2>
+        <p class="chunk-text">You can introduce yourself, ask simple questions, understand basic signed content, and communicate essential ideas clearly.
+</p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">What usually goes wrong</h2>
+        <p class="chunk-text">Learning signs without grammar, neglecting facial expressions, and relying only on memorization without real practice. Another issue is assuming all sign languages are the same.</p>      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">What system or free resources help?</h2>
+        <p class="chunk-text"><ul>
+           <li>Online dictionaries and video libraries for specific sign languages</li>
+
+<li>YouTube channels run by Deaf educators</li>
+
+<li>Community classes or Deaf meetups</li>
+
+<li>Mirrors and video recordings for self-correction</li>
+        </ul></p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">Why AI tools are not very effective at sign language</h2>
+        <p class="chunk-text">AI struggles with sign language because meaning depends on movement, facial expression, spatial positioning, and context simultaneously. Small changes in speed, angle, or expression can change meaning. Cameras often miss depth and motion accuracy, and datasets lack cultural and regional variation. As a result, AI translations are inconsistent and unreliable.
+        </p>  </div>
+
+
+      <div class="chunk">
+        <h2 class="chunk-title">What transferable lesson does this teach?</h2>
+        <p class="chunk-text">Learning sign language teaches respect for accessibility, attention to detail, and the limits of technology. It reinforces that meaningful communication is human-centered and cannot always be automated.
+        </p>  </div>
+         <div class="footer">
+        <a class="back" href="projects.html">Back to Projects</a>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
+

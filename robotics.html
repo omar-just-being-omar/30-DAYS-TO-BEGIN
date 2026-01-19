@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn / Build Robotics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      :root {
+        --wood-0: #0f0a07;
+        --wood-1: #17100c;
+        --wood-2: #24160f;
+        --wood-3: #2f1d14;
+
+        --ink: #f4eadb;
+        --muted: rgba(244, 234, 219, 0.78);
+
+        --glow-amber: rgba(255, 183, 112, 0.18);
+        --glow-rose: rgba(255, 122, 167, 0.12);
+        --glow-teal: rgba(88, 213, 199, 0.10);
+
+        --edge: rgba(255, 244, 230, 0.10);
+        --glass: rgba(255, 244, 230, 0.06);
+        --glass2: rgba(255, 244, 230, 0.09);
+
+        --accent: #ffb36c;
+        --accent2: #ff7aa7;
+        --accent3: #58d5c7;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        background:
+          radial-gradient(900px 520px at 18% 12%, var(--glow-amber), transparent 62%),
+          radial-gradient(880px 520px at 82% 18%, var(--glow-rose), transparent 62%),
+          radial-gradient(900px 600px at 50% 92%, var(--glow-teal), transparent 66%),
+          repeating-linear-gradient(
+            92deg,
+            rgba(255, 214, 170, 0.05) 0px,
+            rgba(255, 214, 170, 0.03) 6px,
+            rgba(0, 0, 0, 0.00) 12px,
+            rgba(0, 0, 0, 0.00) 22px
+          ),
+          linear-gradient(180deg, var(--wood-1), var(--wood-2) 52%, var(--wood-3));
+      }
+
+      .wrap {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 80px 24px 120px;
+        text-align: left;
+      }
+
+      h1 {
+        margin: 0 0 22px;
+        font-size: clamp(2.2rem, 5vw, 3.6rem);
+        letter-spacing: -0.03em;
+        text-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+      }
+
+      .chunk {
+        background: linear-gradient(135deg, var(--glass2), var(--glass));
+        padding: 28px;
+        border-radius: 20px;
+        border: 1px solid var(--edge);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        margin-bottom: 18px;
+      }
+
+      .chunk-title {
+        margin: 0 0 10px;
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: var(--accent2);
+        letter-spacing: -0.01em;
+      }
+
+      .chunk-text {
+        margin: 0;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: var(--muted);
+        text-shadow: 0 10px 36px rgba(0, 0, 0, 0.35);
+      }
+
+      .chunk-text + .chunk-text {
+        margin-top: 12px;
+      }
+
+      .footer {
+        margin-top: 40px;
+        text-align: center;
+        padding-bottom: 40px;
+      }
+
+      .back {
+        appearance: none;
+        border: 1px solid rgba(255, 244, 230, 0.16);
+        border-radius: 999px;
+        padding: 16px 28px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        color: #120b08;
+        cursor: pointer;
+        background: linear-gradient(135deg, rgba(255, 183, 112, 0.98), rgba(255, 122, 167, 0.92));
+        box-shadow: 0 22px 70px rgba(0, 0, 0, 0.50);
+        transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+        text-decoration: none;
+        display: inline-block;
+        letter-spacing: 0.02em;
+      }
+
+      .back:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 28px 85px rgba(0, 0, 0, 0.6);
+        filter: saturate(1.04) brightness(1.02);
+      }
+
+      .back:active {
+        transform: translateY(1px);
+      }
+
+      .btn-burger {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 1050;
+        background: linear-gradient(135deg, rgba(255, 183, 112, 0.98), rgba(255, 122, 167, 0.92));
+        border: 2px solid #7a4d34;
+        border-radius: 8px;
+        color: #fff;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        cursor: pointer;
+      }
+
+      .btn-burger:hover {
+        background: linear-gradient(145deg, #8b5e3c, #a9745b);
+        box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+        transform: translateY(-2px);
+      }
+
+      #woodOffcanvas {
+        background: linear-gradient(145deg, #d1a681, #b37a4f);
+        color: #fff;
+        font-family: 'Georgia', serif;
+      }
+
+      #woodOffcanvas .offcanvas-header {
+        border-bottom: 2px solid #8b5e3c;
+      }
+
+      #woodOffcanvas .btn-close {
+        filter: invert(1);
+      }
+
+      #woodOffcanvas .offcanvas-body .btn {
+        width: 100%;
+        margin-bottom: 1rem;
+        background: linear-gradient(145deg, #a9745b, #8b5e3c);
+        border: 2px solid #7a4d34;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 6px;
+        box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        transition: all 0.2s;
+      }
+
+      #woodOffcanvas .offcanvas-body .btn:hover {
+        background: linear-gradient(145deg, #8b5e3c, #a9745b);
+        transform: translateY(-1px);
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+      }
+
+      a { color: inherit; }
+    </style>
+  </head>
+  <body>
+    <button class="btn-burger" type="button" data-bs-toggle="offcanvas" data-bs-target="#woodOffcanvas" aria-controls="woodOffcanvas">
+      &#9776;
+    </button>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="woodOffcanvas" aria-labelledby="woodOffcanvasLabel">
+      <div class="offcanvas-header">
+        <h5 id="woodOffcanvasLabel">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <a href="index.html"><button class="btn">Home</button></a>
+        <a href="2nd page.html"><button class="btn">Before We Begin</button></a>
+        <a href="projects.html"><button class="btn">Projects</button></a>
+        <a href="important note.html"><button class="btn">VERY IMPORTANT NOTE</button></a>
+        <a href="failed.html"><button class="btn">Feel like you failed?</button></a>
+        <a href="about.html"><button class="btn">About</button></a>
+
+      </div>
+    </div>
+
+    <main class="wrap">
+      <h1>Learn / Build Robotics</h1>
+
+      <div class="chunk">
+        <p class="chunk-text">Most people, when they think about robotics, think of complicated robots with super-human abilities, which look so cool and intimidating to learn, but of course, they start thinking about how hard and complicated all of this is. But let me tell you, you can literally make your first robot in one month. It’s not that complicated, and it’s not that expensive to make one. </p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">What problem does this address?</h2>
+        <p class="chunk-text">Robotics feels intimidating to many people. They think it requires advanced math, expensive parts, or years of experience. This mindset stops beginners from even trying, even though robotics can start very simple.
+</p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">Why do it? What will you gain?</h2>
+        <p class="chunk-text">First of all, it’s fun and rewarding to see a machine you built move and interact with the world. <br>Robotics teaches problem-solving, programming, and electronics in a hands-on way. <br>It builds confidence to tackle more complex projects later. And it opens doors to careers in engineering, automation, and technology. <br> Robotics turns learning into a hands-on experience where you see results immediately, not just theory on a page.<br>Most importantly, you’ll learn that robotics isn’t as scary as it seems at first glance. <br>Once you build one working robot, even a simple one, the fear disappears. The possibilities are endless when you learn robotics! (and programming)
+</p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">How to do it?</h2>
+        <p class="chunk-text">Pick up an Arduino course; they are endless, whether it’s on YouTube, edX, or any other platform. <br>The Arduino course will teach how the circuits and the different components work. 
+If that course already doesn’t have some tutorials on how to do simple robots, like a Line-Following Robot or a Bluetooth car robot, etc. Then search for a beginner robotics course.<br>
+Most importantly, try to actually understand, don’t just copy the teacher, see why they do this and not that. And if something is not clear from the course, search for it on YouTube or any other platform. <br>
+Understand the idea behind everything, but at the same time, don’t just watch; start building as soon as possible! Good luck.</p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">How to stay consistent?</h2>
+        <p class="chunk-text">Treat robotics like a game, not pressure or some kind of homework, because it’s actually fun! <br> You mustn’t put goals like “build a robot in two weeks” or “program this robot in one week.” your goals should be to <strong>understand</strong> ideas, instead of saying “program this robot next week,” say “<strong>understand</strong> how this code works” or “Learn how the Arduino works.” And don’t limit your time and say, “I’m going to learn this concept in x days or x weeks,” just learn them, without the time pressure. Remember, It’s <i>fun</i>!</p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">Why are 30 days enough to start it?</h2>
+        <p class="chunk-text">In 30 days, you can learn the basics, maybe build a robot, or even two if you’re serious about it. But don’t worry if you didn’t; don’t measure yourself and your journey against someone else’s. Just keep on learning what you love doing and try to make it productive! </p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">What does success look like after 30 days?</h2>
+        <p class="chunk-text">Don’t worry, nothing crazy. If you have done a robot already, you’re on the right track! But you must understand it, not just follow a teacher or a tutorial. <br> I would expect that you understand how to connect components and write basic code. <br> Confident about experimenting and fixing mistakes. <br> And your Genuinely excited about improving your designs and building robots!</p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">What usually goes wrong</h2>
+        <p class="chunk-text">You start with overly complex projects. <br> Compare yourself to advanced builders online. <br>Get stuck trying to perfect one robot instead of learning by doing. <br> You wait too long to make your first robot just because you don’t feel “expert enough”, let me tell you, NO ONE is perfect enough; so just <i> do it</i>!
+</p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">What system or free resources help?</h2>
+        <p class="chunk-text"><ol>
+           <li><a href="https://www.mygreatlearning.com/academy/learn-for-free/courses/robotics-and-ai?" target="_blank">Robotics and AI (Great Learning)</a><br>This is a short introductory course that covers the basics of robotics, robot design, control systems, and AI fundamentals — and of course, no prior knowledge is needed.</li> <br>
+           <li><a href="https://www.onlinedegree.com/free-courses/robotics-introduction-robotics/?" target="_blank">Introduction to Robotics (OnlineDegree)</a><br>Free beginner course with videos and exercises that explain how robots work and their applications today — great for building a foundation before moving into projects.</li> <br>
+           <li><a href="https://www.futurelearn.com/courses/begin-robotics?" target="_blank">Begin Robotics (University of Reading / FutureLearn)</a><br> A 4-week intro to robotics, robot anatomy, control, and behavior.</li> <br> And of course, there are endless tutorials on YouTube about Arduino and robotics projects, just search for what you want to build!
+        </ol></p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">What transferable lesson does this teach?</h2>
+        <p class="chunk-text">Robotics teaches that progress comes from building, not overthinking. Simple projects can teach powerful concepts, and having control over something you built makes learning both effective and fun.
+      </div>
+
+      <div class="footer">
+        <a class="back" href="projects.html">Back to Projects</a>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
+

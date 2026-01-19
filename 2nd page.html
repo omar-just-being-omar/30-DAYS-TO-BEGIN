@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Before We Begin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      :root {
+        --wood-0: #0f0a07;
+        --wood-1: #17100c;
+        --wood-2: #24160f;
+        --wood-3: #2f1d14;
+
+        --ink: #f4eadb;
+        --muted: rgba(244, 234, 219, 0.78);
+
+        --glow-amber: rgba(255, 183, 112, 0.18);
+        --glow-rose: rgba(255, 122, 167, 0.12);
+        --glow-teal: rgba(88, 213, 199, 0.10);
+
+        --edge: rgba(255, 244, 230, 0.10);
+        --glass: rgba(255, 244, 230, 0.06);
+        --glass2: rgba(255, 244, 230, 0.09);
+
+        --accent: #ffb36c;
+        --accent2: #ff7aa7;
+        --accent3: #58d5c7;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        background:
+          radial-gradient(900px 520px at 18% 12%, var(--glow-amber), transparent 62%),
+          radial-gradient(880px 520px at 82% 18%, var(--glow-rose), transparent 62%),
+          radial-gradient(900px 600px at 50% 92%, var(--glow-teal), transparent 66%),
+          repeating-linear-gradient(
+            92deg,
+            rgba(255, 214, 170, 0.05) 0px,
+            rgba(255, 214, 170, 0.03) 6px,
+            rgba(0, 0, 0, 0.00) 12px,
+            rgba(0, 0, 0, 0.00) 22px
+          ),
+          linear-gradient(180deg, var(--wood-1), var(--wood-2) 52%, var(--wood-3));
+      }
+
+      .wrap {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 80px 24px 120px;
+      }
+
+      .center { text-align: center; }
+
+      h1 {
+        margin: 0 0 18px;
+        font-size: clamp(2.8rem, 6vw, 4.8rem);
+        letter-spacing: -0.03em;
+        text-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+      }
+
+      h3 {
+        margin: 0 auto 44px;
+        max-width: 60ch;
+        font-size: clamp(1.05rem, 2vw, 1.35rem);
+        line-height: 1.6;
+        font-weight: 650;
+        color: var(--muted);
+        text-shadow: 0 10px 36px rgba(0, 0, 0, 0.35);
+      }
+
+      .accordion {
+        display: grid;
+        gap: 18px;
+      }
+
+      .accordion-item {
+        border-radius: 18px;
+        border: 1px solid var(--edge);
+        background: linear-gradient(135deg, var(--glass2), var(--glass));
+        box-shadow: 0 28px 90px rgba(0, 0, 0, 0.50);
+        backdrop-filter: blur(10px);
+        overflow: hidden;
+      }
+
+      .accordion-header { margin: 0; }
+
+      
+
+      .accordion-button {
+        width: 100%;
+        padding: 20px 22px;
+        background: transparent;
+        border: 0;
+        color: var(--ink);
+        font-family: inherit;
+        font-size: 1.15rem;
+        font-weight: 800;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        outline: none;
+      }
+
+      .accordion-button::before,
+      .accordion-button::after {
+        content: none !important;
+        background: none !important;
+        background-image: none !important;
+        display: none !important;
+      }
+
+      /* Custom Plus Icon */
+      .accordion-button .icon {
+        font-size: 1.4rem;
+        font-weight: 300;
+        opacity: 0.75;
+        transition: transform 200ms ease, opacity 200ms ease;
+      }
+
+      .accordion-button:not(.collapsed) .icon {
+        transform: rotate(45deg);
+        opacity: 0.9;
+      }
+
+      .accordion-button:not(.collapsed) {
+        color: var(--accent);
+      }
+
+      .accordion-collapse {
+        display: block !important; /* Ensure it's not hidden by Bootstrap CSS */
+        height: 0;
+        overflow: hidden;
+        transition: height 320ms cubic-bezier(0.4, 0, 0.2, 1);
+        border-top: 1px solid var(--edge);
+      }
+
+      .accordion-body {
+        padding: 0 22px 22px;
+        color: var(--muted);
+        line-height: 1.7;
+        font-size: 1.05rem;
+      }
+
+      .footer {
+        margin-top: 60px;
+        text-align: center;
+      }
+
+      .back {
+        appearance: none;
+        border: 1px solid rgba(255, 244, 230, 0.16);
+        border-radius: 999px;
+        padding: 12px 18px;
+        font-weight: 800;
+        font-size: 0.98rem;
+        color: #120b08;
+        cursor: pointer;
+        background: linear-gradient(135deg, rgba(255, 183, 112, 0.98), rgba(255, 122, 167, 0.92));
+        box-shadow: 0 22px 70px rgba(0, 0, 0, 0.50);
+        transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .back:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 26px 85px rgba(0, 0, 0, 0.56);
+        filter: saturate(1.04) brightness(1.02);
+      }
+
+      .back:active {
+        transform: translateY(1px);
+      }
+
+
+
+/* Wooden burger button */
+.btn-burger {
+ background: linear-gradient(135deg, rgba(255, 183, 112, 0.98), rgba(255, 122, 167, 0.92));
+  border: 2px solid #7a4d34;
+  border-radius: 8px;
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+
+.btn-burger:hover {
+  background: linear-gradient(145deg, #8b5e3c, #a9745b);
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+  transform: translateY(-2px);
+}
+
+/* Wooden offcanvas */
+#woodOffcanvas {
+  background: linear-gradient(145deg, #d1a681, #b37a4f);
+  color: #fff;
+  font-family: 'Georgia', serif;
+}
+
+#woodOffcanvas .offcanvas-header {
+  border-bottom: 2px solid #8b5e3c;
+}
+
+#woodOffcanvas .btn-close {
+  filter: invert(1);
+}
+
+/* Buttons inside offcanvas */
+#woodOffcanvas .offcanvas-body .btn {
+  width: 100%;
+  margin-bottom: 1rem;
+  background: linear-gradient(145deg, #a9745b, #8b5e3c);
+  border: 2px solid #7a4d34;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 6px;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+  transition: all 0.2s;
+}
+
+#woodOffcanvas .offcanvas-body .btn:hover {
+  background: linear-gradient(145deg, #8b5e3c, #a9745b);
+  transform: translateY(-1px);
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+}
+
+
+
+    </style>
+  </head>
+
+  <body>
+
+<button class="btn-burger" type="button" data-bs-toggle="offcanvas" data-bs-target="#woodOffcanvas" aria-controls="woodOffcanvas">
+  &#9776;
+</button>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="woodOffcanvas" aria-labelledby="woodOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h5 id="woodOffcanvasLabel">Menu</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    
+  <a href="index.html">
+  <button class="btn">Home</button>
+</a>
+
+   <a href="2nd page.html">
+  <button class="btn">Before We Begin</button>
+</a>
+
+    <a href="projects.html">
+  <button class="btn">Projects</button>
+</a>
+
+   <a href="important note.html">
+  <button class="btn">VERY IMPORTANT NOTE</button>
+</a>
+   <a href="failed.html">
+  <button class="btn">Feel like you failed?</button>
+</a>
+    <a href="about.html">
+  <button class="btn">About</button>
+</a>
+
+  </div>
+</div>
+
+
+    <main class="wrap">
+      <div class="center">
+        <h1>Before We Begin</h1>
+        <h3>These aren’t mandatory, but they smooth the path and make the experiments faster and more predictable.</h3>
+      </div>
+
+      <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              Touch Typing 
+              <span class="icon">+</span>
+            </button>
+          </h2>
+          <div id="flush-collapseOne" class="accordion-collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body"><p>
+  The average person types around 45 words per minute, which is a normal rate. Reaching 60 to 70 WPM is considered suitable for most work environments, while 80 WPM and above is often regarded as an advanced level. Touch typing boosts both productivity and speed, allowing you to focus on the task itself rather than the keys under your fingers. It’s an essential skill in almost any workspace today. You can practice using platforms like 
+  <a href="https://www.typingclub.com" target="_blank" rel="noopener noreferrer">typingclub.com</a>, 
+  <a href="https://monkeytype.com" target="_blank" rel="noopener noreferrer">monkeytype.com</a> 
+  and 
+  <a href="https://www.typing.com" target="_blank" rel="noopener noreferrer">typing.com</a>, 
+  among many others. Best of all, touch typing is a skill that’s surprisingly easy to pick up in a short amount of time.
+</p>
+</div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+              Make it fun and effective!
+              <span class="icon">+</span>
+            </button>
+          </h2>
+          <div id="flush-collapseTwo" class="accordion-collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+<p>
+  A 2025 study looking at over 120 research papers found that students who enjoy what they learn do better and learn faster.
+   Positive feelings like fun and interest were linked to higher performance, showing that when learning is enjoyable, it becomes much easier and more effective. 
+  <a href="https://www.sciencedirect.com/science/article/abs/pii/S0023969025000165?" target="_blank" rel="noopener noreferrer">Source</a>
+  The easiest way to make learning fun is to actually make it feel like a game. Give yourself small goals, try to beat your own scores, or set little challenges—it makes practicing way less boring.
+   Mix things up too, like using colorful notes, watching short videos, or practicing with different exercises. Doing it with friends or even just comparing progress with them can make it more interesting.
+    And of course, the best trick is to learn things you care about—type your favorite lyrics, write a story, or mess around with stuff that actually excites you. It just makes everything click.
+</p>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+              Basic Time Manegement
+              <span class="icon">+</span>
+            </button>
+          </h2>
+          <div id="flush-collapseThree" class="accordion-collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+Honestly, the easiest way to manage your time is to actually see it. Break your day into chunks—like school, homework, breaks, and hobbies—so nothing sneaks up on you.
+ Use a timer or phone alarm to stay on track, and tackle the important stuff first. You don’t have to plan every single hour of the day, and it’s okay if things don’t go perfectly—don’t stress yourself or push too hard, you’re not a machine.
+  Just notice what didn’t work, avoid repeating it next time, and build small habits that make managing your time way easier than you’d expect.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingFour">
+            <button class="accordion-button collapsed" type="button" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+              tracking system
+              <span class="icon">+</span>
+            </button>
+          </h2>
+          <div id="flush-collapseFour" class="accordion-collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+Keeping track of what you’re doing is a MUST. It helps you see if you’re actually improving and teaches you a lot about yourself. When you record your goals or log your practice, you can notice real progress—and that’s super rewarding.
+ You don’t need anything fancy; a notebook, an app, or even a simple checklist works. Tick off what you finish, note what’s tricky, and celebrate even the small wins. Tracking shows you what’s working, what’s slowing you down, and what to improve next. 
+ Plus, seeing how far you’ve come makes staying consistent way easier and way more satisfying.  </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <a class="back" href="projects.html">MAKE SOME PROJECTS!</a>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Vanilla JS Accordion Logic
+      document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.accordion-button');
+        
+        buttons.forEach(button => {
+          button.addEventListener('click', () => {
+            const targetId = button.getAttribute('data-bs-target');
+            const target = document.querySelector(targetId);
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+            const parentSelector = button.closest('.accordion-item').parentElement.id;
+            
+            // If opening
+            if (!isExpanded) {
+              // Close all others in the same parent
+              if (parentSelector) {
+                const parent = document.getElementById(parentSelector);
+                const allButtons = parent.querySelectorAll('.accordion-button');
+                const allTargets = parent.querySelectorAll('.accordion-collapse');
+                
+                allButtons.forEach(btn => {
+                  btn.classList.add('collapsed');
+                  btn.setAttribute('aria-expanded', 'false');
+                });
+                allTargets.forEach(t => {
+                  t.style.height = '0px';
+                });
+              }
+
+              // Open current
+              button.classList.remove('collapsed');
+              button.setAttribute('aria-expanded', 'true');
+              target.style.height = target.scrollHeight + 'px';
+            } else {
+              // Close current
+              button.classList.add('collapsed');
+              button.setAttribute('aria-expanded', 'false');
+              target.style.height = '0px';
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

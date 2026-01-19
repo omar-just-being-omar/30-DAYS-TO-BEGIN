@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Build an educational Website</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      :root {
+        --wood-0: #0f0a07;
+        --wood-1: #17100c;
+        --wood-2: #24160f;
+        --wood-3: #2f1d14;
+
+        --ink: #f4eadb;
+        --muted: rgba(244, 234, 219, 0.78);
+
+        --glow-amber: rgba(255, 183, 112, 0.18);
+        --glow-rose: rgba(255, 122, 167, 0.12);
+        --glow-teal: rgba(88, 213, 199, 0.10);
+
+        --edge: rgba(255, 244, 230, 0.10);
+        --glass: rgba(255, 244, 230, 0.06);
+        --glass2: rgba(255, 244, 230, 0.09);
+
+        --accent: #ffb36c;
+        --accent2: #ff7aa7;
+        --accent3: #58d5c7;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        background:
+          radial-gradient(900px 520px at 18% 12%, var(--glow-amber), transparent 62%),
+          radial-gradient(880px 520px at 82% 18%, var(--glow-rose), transparent 62%),
+          radial-gradient(900px 600px at 50% 92%, var(--glow-teal), transparent 66%),
+          repeating-linear-gradient(
+            92deg,
+            rgba(255, 214, 170, 0.05) 0px,
+            rgba(255, 214, 170, 0.03) 6px,
+            rgba(0, 0, 0, 0.00) 12px,
+            rgba(0, 0, 0, 0.00) 22px
+          ),
+          linear-gradient(180deg, var(--wood-1), var(--wood-2) 52%, var(--wood-3));
+      }
+
+      .wrap {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 80px 24px 120px;
+        text-align: left;
+      }
+
+      h1 {
+        margin: 0 0 22px;
+        font-size: clamp(2.2rem, 5vw, 3.6rem);
+        letter-spacing: -0.03em;
+        text-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+      }
+
+      .chunk {
+        background: linear-gradient(135deg, var(--glass2), var(--glass));
+        padding: 28px;
+        border-radius: 20px;
+        border: 1px solid var(--edge);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        margin-bottom: 18px;
+      }
+
+      .chunk-title {
+        margin: 0 0 10px;
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: var(--accent2);
+        letter-spacing: -0.01em;
+      }
+
+      .chunk-text {
+        margin: 0;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: var(--muted);
+        text-shadow: 0 10px 36px rgba(0, 0, 0, 0.35);
+      }
+
+      .chunk-text + .chunk-text {
+        margin-top: 12px;
+      }
+
+      .footer {
+        margin-top: 40px;
+        text-align: center;
+        padding-bottom: 40px;
+      }
+
+      .back {
+        appearance: none;
+        border: 1px solid rgba(255, 244, 230, 0.16);
+        border-radius: 999px;
+        padding: 16px 28px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        color: #120b08;
+        cursor: pointer;
+        background: linear-gradient(135deg, rgba(255, 183, 112, 0.98), rgba(255, 122, 167, 0.92));
+        box-shadow: 0 22px 70px rgba(0, 0, 0, 0.50);
+        transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+        text-decoration: none;
+        display: inline-block;
+        letter-spacing: 0.02em;
+      }
+
+      .back:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 28px 85px rgba(0, 0, 0, 0.6);
+        filter: saturate(1.04) brightness(1.02);
+      }
+
+      .back:active {
+        transform: translateY(1px);
+      }
+
+      .btn-burger {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 1050;
+        background: linear-gradient(135deg, rgba(255, 183, 112, 0.98), rgba(255, 122, 167, 0.92));
+        border: 2px solid #7a4d34;
+        border-radius: 8px;
+        color: #fff;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        cursor: pointer;
+      }
+
+      .btn-burger:hover {
+        background: linear-gradient(145deg, #8b5e3c, #a9745b);
+        box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+        transform: translateY(-2px);
+      }
+
+      #woodOffcanvas {
+        background: linear-gradient(145deg, #d1a681, #b37a4f);
+        color: #fff;
+        font-family: 'Georgia', serif;
+      }
+
+      #woodOffcanvas .offcanvas-header {
+        border-bottom: 2px solid #8b5e3c;
+      }
+
+      #woodOffcanvas .btn-close {
+        filter: invert(1);
+      }
+
+      #woodOffcanvas .offcanvas-body .btn {
+        width: 100%;
+        margin-bottom: 1rem;
+        background: linear-gradient(145deg, #a9745b, #8b5e3c);
+        border: 2px solid #7a4d34;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 6px;
+        box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        transition: all 0.2s;
+      }
+
+      #woodOffcanvas .offcanvas-body .btn:hover {
+        background: linear-gradient(145deg, #8b5e3c, #a9745b);
+        transform: translateY(-1px);
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+      }
+
+      a { color: inherit; }
+    </style>
+  </head>
+  <body>
+    <button class="btn-burger" type="button" data-bs-toggle="offcanvas" data-bs-target="#woodOffcanvas" aria-controls="woodOffcanvas">
+      &#9776;
+    </button>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="woodOffcanvas" aria-labelledby="woodOffcanvasLabel">
+      <div class="offcanvas-header">
+        <h5 id="woodOffcanvasLabel">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <a href="index.html"><button class="btn">Home</button></a>
+        <a href="2nd page.html"><button class="btn">Before We Begin</button></a>
+        <a href="projects.html"><button class="btn">Projects</button></a>
+        <a href="important note.html"><button class="btn">VERY IMPORTANT NOTE</button></a>
+        <a href="failed.html"><button class="btn">Feel like you failed?</button></a>
+        <a href="about.html"><button class="btn">About</button></a>
+
+      </div>
+    </div>
+
+    <main class="wrap">
+      <h1>Build an Educational Website</h1>
+
+      <div class="chunk">
+         <p class="chunk-text">Making an educational website gives you a platform to teach, explain, and structure information in a way that actually makes sense. Imagine building your own library! Kinda…</p>
+        <p class="chunk-text">If you combined two previous projects (Build a website about yourself + Teaching / Mentoring a skill ), then boom, you got yourself an educational website! <br>
+Okay, okay, let’s break it down a little (it’s not that hard, I promise)
+.</p>
+
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">What problem does this address?</h2>
+        <p class="chunk-text">A lot of people want to learn or share knowledge, but there’s no clear space for it.
+This project provides a structured platform for sharing knowledge and learning effectively, both for the creator and the audience.
+</p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">Why do it? What will you gain?</h2>
+        <p class="chunk-text">Teaching is one of the fastest ways to truly understand a topic. By creating an educational site, you’re learning, coding, and designing all at once. You’re practicing how to make complicated things simple, how to guide someone through an idea, and how to make your knowledge accessible. <br>Plus, it’s fun to watch your content help others—seeing someone get what you explained is truly priceless.</p>
+
+<p class="chunk-text">
+About what will you gain, Skills first: coding, UX/UI, structuring content, and even writing clearly. <br>Confidence: you’ll troubleshoot errors, fix bugs, and see your ideas take shape without pressure. <br>And understanding: teaching forces you to really master topics, so your own knowledge deepens as you create. Bonus: You also get a portfolio piece that proves initiative and skill.
+</p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">How to do it?</h2>
+        <p class="chunk-text">Pick one topic you know well. Make a simple page explaining it clearly, maybe with examples or illustrations. Then slowly add more topics, sections, and pages, or interactive features like quizzes or diagrams. Use free hosting: GitHub Pages, Netlify, Replit. <br>Keep your first version simple—DON’T CHASE PERFECTION, it can come later.</p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">How to stay consistent?</h2>
+        <p class="chunk-text">Set a tiny daily goal—write one paragraph, code one section, or design one diagram. Track progress and prioritize functional completion over perfection. Don’t let perfection slow you; mistakes and edits are part of learning.<br>
+One of the biggest mistakes I personally made is that when there’s an error, I would stay for days and sometimes even weeks just to solve this error. Please don’t make the same mistake, skip the error for now, mark it so you don’t forget, and move on with your website.</p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">Why are 30 days enough to start it?</h2>
+        <p class="chunk-text">30 days is enough to have a first version with at least one topic fully explained. You’ll get used to building, organizing, and iterating, and by the end, you’ll have a decent site, maybe not perfect, but it’s always ready for updates. You just have to <strong>start</strong>.</p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">What does success look like after 30 days?</h2>
+        <p class="chunk-text">Honestly, it depends. Personally, I think you can learn the basic HTML and CSS skills to make a basic page in just 10 days, or even make the whole website with those two only.<br> <em>BUT</em>, if you wanna make it a little better, not just dull, maybe you can mix in some JS or design it as you want. In that case, it would probably take you some time to even start (of course depends on how much you study every day). However, if you have just the basics to start immediately, I think you can finish a decent part of this website. <br>Everything depends on you in this project, so I can’t guess what it will look like after 30 days.
+
+</p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">What usually goes wrong</h2>
+        <p class="chunk-text">Perfectionism is the killer. People get stuck tweaking colors, fonts, or coding endlessly. Another trap is inconsistency—life happens, but skipping too often kills momentum. And sometimes, you copy tutorials without understanding them, which makes the project worthless and lifeless. And again, Please don't get caught up on every error, just mark it so you don’t forget, and move on with your website.</p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">What system or free resources help?</h2>
+        <p class="chunk-text"><ol>
+           <li><a href="https://www.youtube.com/@KevinPowell/courses" target="_blank">Kevin Powell (YouTube courses)</a><br>This YouTube channel is amazing! You can start with the “HTML & CSS for absolute beginners” course. You will find anything you want about CSS in this channel.</li> <br>
+           <li><a href="https://www.freecodecamp.org/" target="_blank">FreeCodeCamp</a><br>Literally the most popular course platform for web development. You will find probably anything you want about learning web development.</li> <br>
+           <li><a href="https://codepip.com/?" target="_blank">Codepip (games)</a><br> it's a website that teaches programming with fun games! It's a great way to practice coding concepts in a playful environment (HTML, JS, CSS).<br> But personally, I don't think you can LEARN EVERYTHING from it, but it's a great way to practice.</li> <br>
+              <li><a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a><br> And finally, this is where you'll write your code! it's the most popular code editor for web development, and it has a decent set of features for beginners.</li>
+            <br> And of course, the free courses are literally endless on YouTube about web development, just search for what you want to build! And if you don't know already, you can use GitHub to publish your website for free.
+        </ol></p>
+      </div>
+
+      <div class="chunk">
+        <h2 class="chunk-title">What transferable lesson does this teach?</h2>
+        <p class="chunk-text">How to break knowledge into clear steps, plan a project, and see it through. Patience, discipline, iteration, and teaching skills—you’ll use these everywhere, not just coding. You also learn that mistakes aren’t failures—they’re part of the learning process for you and for the people you teach.</p>
+      </div>
+
+      <div class="footer">
+        <a class="back" href="projects.html">Back to Projects</a>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      :root {
+        --wood-0: #0f0a07;
+        --wood-1: #17100c;
+        --wood-2: #24160f;
+        --wood-3: #2f1d14;
+
+        --ink: #f4eadb;
+        --muted: rgba(244, 234, 219, 0.78);
+
+        --glow-amber: rgba(255, 183, 112, 0.18);
+        --glow-rose: rgba(255, 122, 167, 0.12);
+        --glow-teal: rgba(88, 213, 199, 0.10);
+
+        --edge: rgba(255, 244, 230, 0.10);
+        --glass: rgba(255, 244, 230, 0.06);
+        --glass2: rgba(255, 244, 230, 0.09);
+
+        --accent: #ffb36c;
+        --accent2: #ff7aa7;
+        --accent3: #58d5c7;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        background:
+          radial-gradient(900px 520px at 18% 12%, var(--glow-amber), transparent 62%),
+          radial-gradient(880px 520px at 82% 18%, var(--glow-rose), transparent 62%),
+          radial-gradient(900px 600px at 50% 92%, var(--glow-teal), transparent 66%),
+          repeating-linear-gradient(
+            92deg,
+            rgba(255, 214, 170, 0.05) 0px,
+            rgba(255, 214, 170, 0.03) 6px,
+            rgba(0, 0, 0, 0.00) 12px,
+            rgba(0, 0, 0, 0.00) 22px
+          ),
+          linear-gradient(180deg, var(--wood-1), var(--wood-2) 52%, var(--wood-3));
+      }
+
+      .wrap {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 100px 24px 120px;
+      }
+
+      /* Profile Section */
+      .profile-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin-bottom: 60px;
+      }
+
+      .profile-card {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 300px;
+        background: linear-gradient(135deg, var(--glass2), var(--glass));
+        border: 1px solid var(--edge);
+        border-radius: 20px;
+        padding: 20px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        /* Positioning tweak as requested: not very top, not very left (handled by wrap padding + flex gap) */
+      }
+
+      .profile-photo {
+        width: 100%;
+        aspect-ratio: 1;
+        background-color: rgba(0,0,0,0.2);
+        border-radius: 12px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        color: var(--muted);
+        border: 1px solid var(--edge);
+        overflow: hidden;
+      }
+
+      .profile-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      
+      .profile-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0;
+        color: var(--accent);
+      }
+
+      .profile-content {
+        flex: 1;
+        min-width: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .contact-text {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: var(--muted);
+        background: rgba(0,0,0,0.2);
+        padding: 24px;
+        border-radius: 16px;
+        border: 1px solid var(--edge);
+        margin-bottom: 24px;
+      }
+
+      .bio-text {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: var(--muted);
+        background: rgba(0,0,0,0.2);
+        padding: 24px;
+        border-radius: 16px;
+        border: 1px solid var(--edge);
+      }
+
+      /* Content Sections */
+      .content-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        margin-bottom: 40px;
+        align-items: flex-start;
+      }
+
+      .section-title {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 200px;
+        font-size: 1.8rem;
+        color: var(--accent2);
+        margin: 0;
+        text-transform: capitalize;
+      }
+
+      .section-text {
+        flex: 1;
+        min-width: 300px;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: var(--muted);
+        background: linear-gradient(135deg, var(--glass2), var(--glass));
+        padding: 24px;
+        border-radius: 16px;
+        border: 1px solid var(--edge);
+      }
+
+      /* Footer Button Styles */
+      .footer {
+        margin-top: 60px;
+        text-align: center;
+        padding-bottom: 40px;
+      }
+
+      .back {
+        appearance: none;
+        border: 1px solid rgba(255, 244, 230, 0.16);
+        border-radius: 999px;
+        padding: 16px 28px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        color: #120b08;
+        cursor: pointer;
+        background: linear-gradient(135deg, rgba(255, 183, 112, 0.98), rgba(255, 122, 167, 0.92));
+        box-shadow: 0 22px 70px rgba(0, 0, 0, 0.50);
+        transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+        text-decoration: none;
+        display: inline-block;
+        letter-spacing: 0.02em;
+      }
+
+      .back:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 28px 85px rgba(0, 0, 0, 0.6);
+        filter: saturate(1.04) brightness(1.02);
+      }
+
+      .back:active {
+        transform: translateY(1px);
+      }
+
+      /* Wooden burger button - Absolute Position */
+      .btn-burger {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 1050;
+        background: linear-gradient(135deg, rgba(255, 183, 112, 0.98), rgba(255, 122, 167, 0.92));
+        border: 2px solid #7a4d34;
+        border-radius: 8px;
+        color: #fff;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        cursor: pointer;
+      }
+
+      .btn-burger:hover {
+        background: linear-gradient(145deg, #8b5e3c, #a9745b);
+        box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+        transform: translateY(-2px);
+      }
+
+      /* Wooden offcanvas */
+      #woodOffcanvas {
+        background: linear-gradient(145deg, #d1a681, #b37a4f);
+        color: #fff;
+        font-family: 'Georgia', serif;
+      }
+
+      #woodOffcanvas .offcanvas-header {
+        border-bottom: 2px solid #8b5e3c;
+      }
+
+      #woodOffcanvas .btn-close {
+        filter: invert(1);
+      }
+
+      /* Buttons inside offcanvas */
+      #woodOffcanvas .offcanvas-body .btn {
+        width: 100%;
+        margin-bottom: 1rem;
+        background: linear-gradient(145deg, #a9745b, #8b5e3c);
+        border: 2px solid #7a4d34;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 6px;
+        box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        transition: all 0.2s;
+      }
+
+      #woodOffcanvas .offcanvas-body .btn:hover {
+        background: linear-gradient(145deg, #8b5e3c, #a9745b);
+        transform: translateY(-1px);
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+      }
+      
+      a { color: inherit; }
+    </style>
+  </head>
+
+  <body>
+    <!-- Burger Button -->
+    <button class="btn-burger" type="button" data-bs-toggle="offcanvas" data-bs-target="#woodOffcanvas" aria-controls="woodOffcanvas">
+      &#9776;
+    </button>
+
+    <!-- Offcanvas Menu -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="woodOffcanvas" aria-labelledby="woodOffcanvasLabel">
+      <div class="offcanvas-header">
+        <h5 id="woodOffcanvasLabel">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <a href="index.html"><button class="btn">Home</button></a>
+        <a href="2nd page.html"><button class="btn">Before We Begin</button></a>
+        <a href="projects.html"><button class="btn">Projects</button></a>
+        <a href="important note.html"><button class="btn">VERY IMPORTANT NOTE</button></a>
+        <a href="failed.html"><button class="btn">Feel like you failed?</button></a>
+        <a href="about.html"><button class="btn">About</button></a>
+
+      </div>
+    </div>
+
+    <main class="wrap">
+      
+      <!-- Top Section: Card & Intro -->
+      <div class="profile-section">
+        <div class="profile-card">
+          <div class="profile-photo">
+            <img src="omar win.jpeg" alt="Omar Wael Kamal">
+          </div>
+          <h2 class="profile-name">Omar Wael Kamal</h2>
+        </div>
+        
+        <div class="profile-content">
+          <div class="contact-text">
+            feel free to message me anytime, about a project or the website or just anything <a href="mailto:messageomarsalem@gmail.com" style="text-decoration: underline; color: #ff5555;">messageomarsalem@gmail.com</a>
+          </div>
+          <div class="bio-text">
+            My name is Omar Wael, and I’m a 16-year-old student from Egypt. I’ve always enjoyed learning, but what I enjoy even more is teaching others. I believe it’s unfair to know something useful and keep it to yourself, especially when sharing it could help someone grow or feel more confident. That’s why I’ve loved teaching from a young age, even when the topic is simple or basic. For me, teaching isn’t about being an expert—it’s about helping others understand, improve, and realize that learning doesn’t have to be complicated.
+          </div>
+        </div>
+      </div>
+
+      <div class="content-row">
+        <h3 class="section-title">About the website</h3>
+        <div class="section-text">
+         I wanted to write more for each project paragraph, but I tried to keep things simple and focus on real material. I didn’t want to add extra just to make it look bigger or shinier. My goal was to keep the content raw and useful while making sure the reader doesn’t get bored. If you were expecting something different, feel free to message me—I’m more than happy to hear your thoughts and suggestions! Wishing you a great month :)</div>
+      </div>
+
+      <!-- Purpose Section -->
+      <div class="content-row">
+        <h3 class="section-title">purpose:</h3>
+        <div class="section-text">
+          My purpose is to make learning more accessible and enjoyable for everyone. try my best to help people around the world in any way I can, because I don’t think it’s fair that someone’s desire to learn is limited by their financial situation. That’s why I keep doing this. I’ll continue sharing what I know and helping others in every way I can, even if what I’m teaching feels small or simple. Knowledge has value no matter its size, and if it can help even one person move forward, then it’s worth sharing.
+        </div>
+      </div>
+
+      <!-- Other Websites Section -->
+      <div class="content-row">
+        <h3 class="section-title">other websites:</h3>
+        <div class="section-text">
+          This is an educational website about space and astronomy, it's interactve and fun, and you can test yourself too!
+          <a href="https://learn-from-a-cactus-fruit-ibsu.onrender.com/index.html" style="text-decoration: underline; color: rgb(50, 204, 255);">Learn from a cactus fruit</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        <a href="index.html" class="back">Back to Home</a>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

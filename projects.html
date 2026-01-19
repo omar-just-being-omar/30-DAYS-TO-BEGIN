@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      :root {
+        --wood-0: #0f0a07;
+        --wood-1: #17100c;
+        --wood-2: #24160f;
+        --wood-3: #2f1d14;
+
+        --ink: #f4eadb;
+        --muted: rgba(244, 234, 219, 0.78);
+
+        --glow-amber: rgba(255, 183, 112, 0.18);
+        --glow-rose: rgba(255, 122, 167, 0.12);
+        --glow-teal: rgba(88, 213, 199, 0.10);
+
+        --edge: rgba(255, 244, 230, 0.10);
+        --glass: rgba(255, 244, 230, 0.06);
+        --glass2: rgba(255, 244, 230, 0.09);
+
+        --accent: #ffb36c;
+        --accent2: #ff7aa7;
+        --accent3: #58d5c7;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        background:
+          radial-gradient(900px 520px at 18% 12%, var(--glow-amber), transparent 62%),
+          radial-gradient(880px 520px at 82% 18%, var(--glow-rose), transparent 62%),
+          radial-gradient(900px 600px at 50% 92%, var(--glow-teal), transparent 66%),
+          repeating-linear-gradient(
+            92deg,
+            rgba(255, 214, 170, 0.05) 0px,
+            rgba(255, 214, 170, 0.03) 6px,
+            rgba(0, 0, 0, 0.00) 12px,
+            rgba(0, 0, 0, 0.00) 22px
+          ),
+          linear-gradient(180deg, var(--wood-1), var(--wood-2) 52%, var(--wood-3));
+      }
+
+      .wrap {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 80px 24px 120px;
+      }
+
+      .center { text-align: center; }
+
+      h1 {
+        margin: 0 0 18px;
+        font-size: clamp(2.8rem, 6vw, 4.8rem);
+        letter-spacing: -0.03em;
+        text-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+        text-align: center;
+      }
+
+      h3 {
+        margin: 0 auto 50px;
+        max-width: 70ch;
+        font-size: clamp(1.05rem, 2vw, 1.35rem);
+        line-height: 1.6;
+        font-weight: 650;
+        color: var(--muted);
+        text-shadow: 0 10px 36px rgba(0, 0, 0, 0.35);
+        text-align: center;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 24px;
+        margin-bottom: 60px;
+      }
+
+      @media (min-width: 600px) {
+        .grid { grid-template-columns: repeat(2, 1fr); }
+      }
+
+      @media (min-width: 900px) {
+        .grid { grid-template-columns: repeat(3, 1fr); }
+      }
+
+      .project-card {
+        background: linear-gradient(135deg, var(--glass2), var(--glass));
+        border: 1px solid var(--edge);
+        border-radius: 20px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s;
+        cursor: pointer;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        appearance: none;
+        color: var(--ink);
+      }
+
+      .project-card:hover {
+        transform: translateY(-6px) scale(1.02);
+        box-shadow: 0 22px 60px rgba(0,0,0,0.5);
+        border-color: rgba(255, 244, 230, 0.25);
+      }
+
+      .card-img {
+        width: 100%;
+        aspect-ratio: 1;
+        background: rgba(0,0,0,0.3);
+        border-radius: 14px;
+        margin-bottom: 18px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.05);
+      }
+      
+      .card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        opacity: 0.8;
+        transition: opacity 0.3s;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      
+      .card-img span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+      
+      .project-card:hover .card-img img {
+        opacity: 1;
+      }
+
+      .card-name {
+        font-size: 1.3rem;
+        font-weight: 700;
+        text-align: center;
+        color: var(--ink);
+      }
+
+      /* Wooden burger button - Left Side */
+      .btn-burger {
+        position: absolute;
+        top: 20px;
+        left: 20px; /* Changed from right to left */
+        z-index: 1050;
+        background: linear-gradient(135deg, rgba(255, 183, 112, 0.98), rgba(255, 122, 167, 0.92));
+        border: 2px solid #7a4d34;
+        border-radius: 8px;
+        color: #fff;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        cursor: pointer;
+      }
+
+      .btn-burger:hover {
+        background: linear-gradient(145deg, #8b5e3c, #a9745b);
+        box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+        transform: translateY(-2px);
+      }
+
+      /* Wooden offcanvas */
+      #woodOffcanvas {
+        background: linear-gradient(145deg, #d1a681, #b37a4f);
+        color: #fff;
+        font-family: 'Georgia', serif;
+      }
+
+      #woodOffcanvas .offcanvas-header {
+        border-bottom: 2px solid #8b5e3c;
+      }
+
+      #woodOffcanvas .btn-close {
+        filter: invert(1);
+      }
+
+      /* Buttons inside offcanvas */
+      #woodOffcanvas .offcanvas-body .btn {
+        width: 100%;
+        margin-bottom: 1rem;
+        background: linear-gradient(145deg, #a9745b, #8b5e3c);
+        border: 2px solid #7a4d34;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 6px;
+        box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        transition: all 0.2s;
+      }
+
+      #woodOffcanvas .offcanvas-body .btn:hover {
+        background: linear-gradient(145deg, #8b5e3c, #a9745b);
+        transform: translateY(-1px);
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+      }
+
+      /* Footer Button Styles */
+      .footer {
+        margin-top: 40px;
+        text-align: center;
+        padding-bottom: 40px;
+      }
+
+      .back {
+        appearance: none;
+        border: 1px solid rgba(255, 244, 230, 0.16);
+        border-radius: 999px;
+        padding: 16px 28px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        color: #120b08;
+        cursor: pointer;
+        background: linear-gradient(135deg, rgba(255, 183, 112, 0.98), rgba(255, 122, 167, 0.92));
+        box-shadow: 0 22px 70px rgba(0, 0, 0, 0.50);
+        transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+        text-decoration: none;
+        display: inline-block;
+        letter-spacing: 0.02em;
+      }
+
+      .back:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 28px 85px rgba(0, 0, 0, 0.6);
+        filter: saturate(1.04) brightness(1.02);
+      }
+
+      .back:active {
+        transform: translateY(1px);
+      }
+
+   
+
+    
+
+    </style>
+  </head>
+
+  <body>
+    <!-- Burger Button -->
+    <button class="btn-burger" type="button" data-bs-toggle="offcanvas" data-bs-target="#woodOffcanvas" aria-controls="woodOffcanvas">
+      &#9776;
+    </button>
+
+    <!-- Offcanvas Menu -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="woodOffcanvas" aria-labelledby="woodOffcanvasLabel"> <!-- Changed to offcanvas-end as requested -->
+      <div class="offcanvas-header">
+        <h5 id="woodOffcanvasLabel">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <a href="index.html"><button class="btn">Home</button></a>
+        <a href="2nd page.html"><button class="btn">Before We Begin</button></a>
+        <a href="projects.html"><button class="btn">Projects</button></a>
+        <a href="important note.html"><button class="btn">VERY IMPORTANT NOTE</button></a>
+        <a href="failed.html"><button class="btn">Feel like you failed?</button></a>
+        <a href="about.html"><button class="btn">About</button></a>
+
+      </div>
+    </div>
+
+    <main class="wrap">
+      <h1>Projects</h1>
+      <h3>I highly recommend that you take a look at everyone of those, even if you don't like their title, and I think all of these "projects" are very helpful and impactful and unique ways</h3>
+
+  
+
+      <div class="grid">
+        <!-- Card 1 -->
+        <a href="community.html" class="project-card">
+          <div class=" card-img">
+            <img src="community.jpeg" alt="Community project" class="card-image">
+
+            <span style="font-size: 3rem; opacity: 0.5;"></span>
+          </div>
+          <div class="card-name">Build a 100+ community</div>
+        </a>
+        
+        <!-- Card 2 -->
+        <a href="mentoring.html" class="project-card">
+          <div class="card-img">
+            <img src="teaching skill.jpeg" alt="Mentoring/Teaching a skill" class="card-image">
+            <span style="font-size: 3rem; opacity: 0.5;"></span>
+          </div>
+          <div class="card-name">Mentoring/Teaching a skill</div>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="initiative.html" class="project-card">
+          <div class="card-img">
+            <img src="volunteer initiative .jpeg" alt="Build a volunteer based initiative" class="card-image">
+            <span style="font-size: 3rem; opacity: 0.5;"></span>
+          </div>
+          <div class="card-name">Build a volunteer based initiative</div>
+        </a>
+
+       
+
+        <!-- Card 4 -->
+        <a href="robotics.html" class="project-card">
+          <div class="card-img">
+            <img src="robotics.jpeg" alt="Build/Learn robotics" class="card-image">
+            <span style="font-size: 3rem; opacity: 0.5;"></span>
+          </div>
+          <div class="card-name">Build/Learn robotics</div>
+        </a>
+
+        <!-- Card 5 -->
+        <a href="ur website.html" class="project-card">
+          <div class="card-img">
+            <img src="ur website.jpeg" alt="Build a website about yourself" class="card-image">
+            <span style="font-size: 3rem; opacity: 0.5;"></span>
+          </div>
+          <div class="card-name">Build a website about yourself</div>
+        </a>
+
+        <!-- Card 6 -->
+        <a href="edu website.html" class="project-card">
+          <div class="card-img">
+            <img src="educational web.jpeg" alt="Educational website" class="card-image">
+            <span style="font-size: 3rem; opacity: 0.5;"></span>
+          </div>
+          <div class="card-name">Build an educational website</div>
+        </a>
+
+        <!-- Card 7 -->
+        <a href="learn lang.html" class="project-card">
+          <div class="card-img">
+            <img src="learn lang.jpeg" alt="Learn a language" class="card-image">
+            <span style="font-size: 3rem; opacity: 0.5;"></span>
+          </div>
+          <div class="card-name">Learn a language</div>
+        </a>
+
+        <!-- Card 8 -->
+        <a href="lang teacher.html" class="project-card">
+          <div class="card-img">
+            <img src="lang teacher.jpeg" alt="Teaching a language" class="card-image">
+            <span style="font-size: 3rem; opacity: 0.5;"></span>
+          </div>
+          <div class="card-name">Language teacher</div>
+        </a>
+
+        <!-- Card 9 -->
+        <a href="sign lang.html" class="project-card">
+          <div class="card-img">
+            <img src="sign lang.jpeg" alt="Learn sign language" class="card-image">
+            <span style="font-size: 3rem; opacity: 0.5;"></span>
+          </div>
+          <div class="card-name">Learn sign language</div>
+        </a>
+      </div>
+
+      <div class="footer">
+        <a class="back" href="important note.html">VERY IMPORTANT NOTE</a>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
